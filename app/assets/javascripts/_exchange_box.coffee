@@ -1,16 +1,18 @@
 $(document).ready ->
   $('#quantity').on "keyup", ->
-    console.log($('#quantity').val())
-    if $('#quantity').val() != ""
-      convert_quantity()
-    else
-      $('#result').val('')
+    convert_quantity()
+
+  $('#currency').on "change", ->
+    convert_quantity()
+
+  $('#currency_destination').on "change", ->
+    convert_quantity()
 
   $('body').on 'click', '#switch_currency', ->
     old_currency = $('#currency').val()
-    old_currency_destination = $('#currency_destination').val()
+    $('#currency').val($('#currency_destination').val())
     $('#currency_destination').val(old_currency)
-    $('#currency').val(old_currency_destination)
+
     convert_quantity()
 
 
@@ -28,7 +30,8 @@ $(document).ready ->
             alert textStatus
           success: (data, text , jqXHR) ->
             $('#result').val(data.value)
-
+    else
+      $('#result').val('')
 
 
        
